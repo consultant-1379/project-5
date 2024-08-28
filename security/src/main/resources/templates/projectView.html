@@ -1,0 +1,50 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>OWASP report</title>
+    <style>
+    body {
+    font-family: calibri;
+    }
+
+    tr:nth-child(even) {
+    background-color : #f2f2f2;
+    }
+
+
+    </style>
+</head>
+<body>
+<h3 th:text="${project}"></h3>
+<h2>Issues Breakdown by OWASP Category and Severity</h2>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th style="width: 250px;" align="center">Category</th>
+        <th style="width: 200px;" align="center">Rating</th>
+        <th align="center"><img src="/images/Blocker.jpg"width="20" height="20" ></th>
+        <th align="center"><img src="/images/critical.jpg"width="20" height="20"></th>
+        <th align="center"><img src="/images/major.jpg" width="20" height="20"></th>
+        <th align="center"><img src="/images/minor.jpg" width="20" height="20"></th>
+        <th align="center"><img src="/images/infoblue.jpg" width="20" height="20"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="report : ${reports}">
+        <td align="center" th:text="${report.category}"></td>
+        <td align="center" th:text="${report.rating}"></td>
+        <td align="center" th:each="key: ${report.getVulnerabilities().keySet()}" th:text="${report.getVulnerabilities().get(key)}"></td>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td align="right"><b>Total Vulnerabilities:</b></td>
+        <td align="center" th:each="total : ${totals}" th:text="${total}"></td>
+    </tr>
+    
+    </tbody>
+</table>
+</body>
+</html>
